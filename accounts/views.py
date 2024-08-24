@@ -8,7 +8,6 @@ from django.views.generic import FormView
 
 from transactions.views import send_transaction_email
 
-
 # Create your views here.
 
 
@@ -23,6 +22,7 @@ class UserProfileUpdateView(View):
         form = UserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(self.request, "Update successful")
             return redirect("profile")
         return render(request, self.template_name, {"form": form})
 
@@ -38,5 +38,5 @@ class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):
             "Your Password Has Been Changed",
             "accounts/password_change_email.html",
         )
-
+        messages.success(self.request, "Password Changed Successfully")
         return super().form_valid(form)

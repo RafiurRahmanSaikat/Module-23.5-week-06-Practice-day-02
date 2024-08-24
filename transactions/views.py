@@ -91,5 +91,5 @@ class TransferMoneyView(TransactionCreateMixin):
 
             return super().form_valid(form)
         except UserBankAccount.DoesNotExist:
-            form.add_error("account_number", "Invalid Account No")
+            messages.error(self.request, "Invalid Account No")
             return super().form_invalid(form)
